@@ -9,7 +9,7 @@ In this assignment you’ll be doing the following:
 - Read a raw text file containing movie reviews and ratings. 
 - Read a file containing stopwords and create a HashSet which will be used for cleaning the data.
 - Clean the data. (For example: Remove the punctuations and stopwords (e.g. is, and, the, etc.) from the reviews) and write the contents to a clean review file.
-- Create a HashMap which associates a word from the cleaned file to values which represent the rating and the count of the word in the given file. 
+- Create a HashMap which associates a word from the cleaned file to values which represent the total rating and the count of the word in the given file. 
 - Use the HashMap between the words and their associated values and rate reviews from another file that doesn’t have any rating already.
 - Write the ratings of the reviews to an output file.
 
@@ -113,8 +113,8 @@ output --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the
 
 This methods takes in an ArrayList of words and splits the words in the ArrayList at the hyphens and single quotes and return a modified ArrayList of words.  
 Example:   
-input --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the", "best!!") 
-output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie!", "It", "s", "the", "best!!") 
+input --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the", "best!!")   
+output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie!", "It", "s", "the", "best!!")    
 
 - `public ArrayList<String> removePunctuation (ArrayList<String> words)`   
  
@@ -127,7 +127,7 @@ output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s",
   
 This method should remove all the leading and trailing white spaces from the ArrayList of words and return a modified ArrayList of words.   
 Example:   
-input --> ("The", "Jungle", "Book   ", "is", "a", "    fantastic", "movie", "  It", "s", "the  ", "best")   
+input --> ("The", "Jungle", "Book    ", "is", "a", "    fantastic", "movie", "  It", "s", "the  ", "best")   
 output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s", "the", "best")   
 
 - `public ArrayList<String> removeEmptyWords (ArrayList<String> words)`  
@@ -181,23 +181,23 @@ The cleaned files should have the same structure as the input files i.e; if the 
 
 For example:   
 
-If the input file `rawReviewRatings.txt` file contains:  
-4 The Jungle Book is awesome shouldn't!
-2 "The Lion King" is awe-inspiring !
-0 Jack and Jill is worst!
-1 " Finding Dory" is good .
-3 Zootopia    is fantastic.
-4 Jungle Book is fantastic.
-3 Lion King is fantastic.
+If the input file `rawReviewRatings.txt` file contains:   
+4 The Jungle Book is awesome shouldn't!  
+2 "The Lion King" is awe-inspiring !   
+0 Jack and Jill is worst!   
+1 " Finding Dory" is good .   
+3 Zootopia    is fantastic.   
+4 Jungle Book is fantastic.   
+3 Lion King is fantastic.   
 
-Then the output file `cleanReviewRatings.txt` file should contain:  
-4 jungle book awesome 
-2 lion king awe inspiring 
-0 jack jill worst 
-1 finding dory good 
-3 zootopia fantastic 
-4 jungle book fantastic 
-3 lion king fantastic 
+Then the output file `cleanReviewRatings.txt` file should contain:   
+4 jungle book awesome   
+2 lion king awe inspiring    
+0 jack jill worst    
+1 finding dory good    
+3 zootopia fantastic   
+4 jungle book fantastic    
+3 lion king fantastic    
 
 - `public void updateHashMap(String inCleanFile)`   
 
@@ -224,13 +224,14 @@ For example: The HashMap for the above cleaned data file `cleanReviewRatings.txt
  
 - `public void rateReviews (String inCleanFile, String outRatingsFile)`   
 
-Once you have the cleaned file (for example: cleaned data file is `cleanReviews.txt` for the given raw review file i.e; `rawReviews.txt`), you will predict the ratings for the reviews given in this cleaned file. Using the HashMap that you created in the previous step, you are going to read new unrated reviews from a cleaned file (e.g. `cleanedReviews.txt`) and predict a rating for each review in this file. The predicted rating for each review is written to an output file named `ratings.txt`.    
+For this, first you should have already cleaned the file with only reviews given to you. Once you have the cleaned file (for example: cleaned data file is `cleanReviews.txt` for the given raw review file i.e; `rawReviews.txt`), you will predict the ratings for the reviews given in this cleaned file. Using the HashMap that you created in the previous step, you are going to read new unrated reviews from a cleaned file (e.g. `cleanedReviews.txt`) and predict a rating for each review in this file. The predicted rating for each review is written to an output file named `ratings.txt`.    
 
 How do we predict the ratings for the unrated reviews?     
 
 - Rate each review by finding the rating for each word from the HashMap that was updated previously. The rating for a line of review is the average value of the rating of all the words in the review. If some word in this unrated review is not found in the HashMap, then that word is given a neutral rating of 2. If a review is empty (i.e. the review contains no words in it), then such a review is also given a neutral rating of 2.  
 
-e.g. Let see how we computed the rating for the 2nd review in cleanReviews.txt (i.e. “lion king fantastic”). We lookup the HashMap that we created before and get the average rating for each word in this review. The average ratings of each word in this review is shown below:  
+e.g. Let see how we computed the rating for the 2nd review in cleanReviews.txt (i.e. “lion king fantastic”). We lookup the HashMap that we created before and get the average rating for each word in this review. The average ratings of each word in this review is shown below:   
+
 lion: 5/2 = 2.5   
 king: 5/2 = 2.5  
 fantastic: 10/3 = 3.3333333  
@@ -245,13 +246,15 @@ Finding: 1
 Nemo: 2 (because it is NOT found in the HashMap)  
 great: 2 (because it is also NOT found in the HashMap)  
 
-Rating for this line = (1 + 2 + 2) / 3 = 1.666666   
+Rating for this line = (1 + 2 + 2) / 3 = 1.6666666   
 
 Write the corresponding ratings for all the reviews to an output file named `ratings.txt`.   
 
 ## Testing
 You can test your code on the given small dataset first and then move on to testing your code on the given bigger dataset. We will be testing your code on another unseen bigger dataset, thus do not try to hard code any of the ratings.
-The flow of the overall code is shown in the figure below:  
+The flow of the overall code is shown in the figure below:   </br></br>
+
+
 
 ![flowchart](Images/flowchart.png)
 
