@@ -30,7 +30,7 @@ You have been given the following input files for small data and big data.
 
 A brief description of what each file contains:
 
-#### - `rawReviewRatings.txt`<br/>
+### - `rawReviewRatings.txt`<br/>
 The raw data with the reviews and the rating will be present in a file named rawReviewRatings.txt. Every review is given a rating between 0 - 4 (both inclusive). The following are interpretation of the rating values:  
 0 = Negative  
 1 = Somewhat Negative  
@@ -69,7 +69,7 @@ You can expected to create a class called `RatingPredictor.java` for this assign
 
 You should have the following instance variables in your class:  
 
-- `private HashMap<String, int[]> wordFreqMap`   
+#### - `private HashMap<String, int[]> wordFreqMap`   
 
 This will be the hashmap in which you will store a string as your key and an integer array as the value. The string represents a word in the review. The first element in the integer array should hold the sum of the ratings of the reviews of which the word is a part of and the second element in the integer array should hold the count for the word (the number of times the word appears in the reviews altogether)   
 
@@ -88,13 +88,13 @@ The HashMap `wordFreqMap` should contain these key-value pairs:
 
 The word 'jungle' appears two times and the corresponding ratings are added up (4+3=7) to give the total rating and 2 is number of the times the word appears in all of the reviews combined.
 
-- `private<String> set`  
+#### - `private<String> set`  
 
 This will be the hashset that stores all of the stopwords read from the `stopwords.txt` file.   
 
 ### Constructor:
 
-- `public RatingPredictor()` 
+#### - `public RatingPredictor()` 
 
 Use this non-parameterized constructor to initialize the instance variables.
 
@@ -102,69 +102,85 @@ Use this non-parameterized constructor to initialize the instance variables.
 
 You need to have the have the following methods in your class which will be used to clean the data.      
 
-- `public ArrayList<String> splitLine (String sentence)`  
+#### - `public ArrayList<String> splitLine (String sentence)`  
 
 This method takes in a String as a parameter. The String will contain the entire review and this method should split it into words and return an ArrayList of words.  
+
 Example:  
+
 input --> The Jungle-Book is a fantastic movie! It's the best!!   
 output --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the", "best!!") 
 
-- `public ArrayList<String> replaceHyphensQuotes (ArrayList<String> words)` 
+#### - `public ArrayList<String> replaceHyphensQuotes (ArrayList<String> words)` 
 
-This methods takes in an ArrayList of words and splits the words in the ArrayList at the hyphens and single quotes and return a modified ArrayList of words.  
+This methods takes in an ArrayList of words and splits the words in the ArrayList at the hyphens and single quotes and return a modified ArrayList of words. 
+ 
 Example:   
+
 input --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the", "best!!")   
 output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie!", "It", "s", "the", "best!!")    
 
-- `public ArrayList<String> removePunctuation (ArrayList<String> words)`   
+#### - `public ArrayList<String> removePunctuation (ArrayList<String> words)`   
  
 This method should remove all the punctuation from the ArrayList of words and return a modified ArrayList of words. The following characters are considered as punctuations: ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~``  
+
 Example:   
+
 input --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie!", "It", "s", "the", "best!!")  
 output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s", "the", "best")  
 
-- `public ArrayList<String> removeWhiteSpaces (ArrayList<String> words)`
+#### - `public ArrayList<String> removeWhiteSpaces (ArrayList<String> words)`
   
 This method should remove all the leading and trailing white spaces from the ArrayList of words and return a modified ArrayList of words.   
+
 Example:   
+
 input --> ("The", "Jungle", "Book    ", "is", "a", "    fantastic", "movie", "  It", "s", "the  ", "best")   
 output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s", "the", "best")   
 
-- `public ArrayList<String> removeEmptyWords (ArrayList<String> words)`  
+#### - `public ArrayList<String> removeEmptyWords (ArrayList<String> words)`  
 
 This method should remove all empty words from the ArrayList of words and return a modified ArrayList of words.  
+
 Example:   
+
 input --> ("The", "Jungle", "Book", "", "", "fantastic", "movie", "It", "s", "", "best")   
 output --> ("The", "Jungle", "Book", "fantastic", "movie", "It", "s", "best") 
 
-- `public ArrayList<String> removeSingleLetterWords (ArrayList<String> words)`   
+#### - `public ArrayList<String> removeSingleLetterWords (ArrayList<String> words)`   
 
 This method should remove all single letter words from the ArrayList of words and return a modified ArrayList of words.   
+
 Example:    
+
 input --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s", "the", "best")     
 output --> ("The", "Jungle", "Book", "is", "fantastic", "movie", "It", "the", "best")   
 
-- `public ArrayList<String> toLowerCase (ArrayList<String> words)`  
+#### - `public ArrayList<String> toLowerCase (ArrayList<String> words)`  
 
 This method should make all the words in the ArrayList to lower case and return a modified ArrayList of words.   
+
 Example:     
+
 input --> ("The", "Jungle", "Book", "is", "fantastic", "movie", "It", "the", "best")     
 output --> ("the", "jungle", "book", "is", "fantastic", "movie", "it", "the", "best")   
 
-- `public ArrayList<String> removeStopWords (ArrayList<String> arrList)`
+#### - `public ArrayList<String> removeStopWords (ArrayList<String> arrList)`
 
 This method should remove all the stop words in the ArrayList and return a modified ArrayList of words. You need to create a HashSet from the given `stopwords.txt` file and then use the HashSet to filter out those stop words from the given ArrayList.  
+
 Example:     
+
 input --> ("the", "jungle", "book", "is", "fantastic", "movie", "it", "the", "best")       
 output --> ("jungle", "book", "fantastic", "movie", "best")      
 
 ### Methods to help with the rating prediction task:
 
-- `public void createStopWordsSet (String stopWordsInFile, String stopWordsOutFile)`  
+#### - `public void createStopWordsSet (String stopWordsInFile, String stopWordsOutFile)`  
 
 Read the `stopwords.txt` as the input file and create a HashSet of stop words and also output the HashSet into an output file called `uniqueStopwords.txt`. This output file should contain one stop word in each line and should not have any duplicate stop words.  
 
-- `public void cleanData (String inFile, String outFile, boolean ratingIncluded)`   
+#### - `public void cleanData (String inFile, String outFile, boolean ratingIncluded)`   
 
 This method should read a raw input file and output a cleaned data file:
 For example:
@@ -199,7 +215,7 @@ Then the output file `cleanReviewRatings.txt` file should contain:
 4 jungle book fantastic    
 3 lion king fantastic    
 
-- `public void updateHashMap(String inCleanFile)`   
+#### - `public void updateHashMap(String inCleanFile)`   
 
 This method should take in the cleaned data file as the input and use it to update the HashMap as explained before in the instance variable section.
 
@@ -222,7 +238,7 @@ For example: The HashMap for the above cleaned data file `cleanReviewRatings.txt
 |jungle|[8, 2]|
 |dory|[1, 1]|  
  
-- `public void rateReviews (String inCleanFile, String outRatingsFile)`   
+#### - `public void rateReviews (String inCleanFile, String outRatingsFile)`   
 
 For this, first you should have already cleaned the file with only reviews given to you. Once you have the cleaned file (for example: cleaned data file is `cleanReviews.txt` for the given raw review file i.e; `rawReviews.txt`), you will predict the ratings for the reviews given in this cleaned file. Using the HashMap that you created in the previous step, you are going to read new unrated reviews from a cleaned file (e.g. `cleanedReviews.txt`) and predict a rating for each review in this file. The predicted rating for each review is written to an output file named `ratings.txt`.    
 
