@@ -69,64 +69,24 @@ public class RatingPredictor {
     }
     
     /** 
-     * Method to predict the ratings of the reviews read from a file
-     * @param inCleanFile - The cleaned version of the file containing only 
-     * reviews.
-     * @param outRatingsFile - The output file that will contain the 
-     * corresponding ratings for each review.
-     * @return void
+     * Method to split the entire sentence at space delimiters
+     * @param sentence - A string containing a review.
+     * @return ArrayList<String> - The array list containing words of the 
+     * review split at spaces
      */
-    public void rateReviews (String inCleanFile, String outRatingsFile) {
+    public ArrayList<String> splitLine (String sentence) {
         
-        Scanner sc = null; 
-        PrintWriter pw = null; 
-        ArrayList<String> cleanWords = new ArrayList<String>();
+        if (sentence == null || sentence.length() == 0) {
+            return null;
+        }
         
-        try {
-            File inputFile = new File(inCleanFile); 
-            sc = new Scanner(inputFile); 
-            File outputFile = new File(outRatingsFile); 
-            pw = new PrintWriter(outputFile); 
-
-            while(sc.hasNextLine()) {
-                String line = sc.nextLine(); 
-                cleanWords = splitLine(line);
-                float default_rating = 0;
-                float sum = 0;
-                int wordCount = 0;
-                
-                if (cleanWords == null) {
-                    pw.println(default_rating);
-                }
-                
-                else {
-                    for (String word: cleanWords) {
-                        wordCount++;
-                        if (!wordFreqMap.containsKey(word)) {
-                            sum += 2;
-                        }
-                        else {
-                            int[] vals = wordFreqMap.get(word);
-                            sum += vals[0] / vals[1];
-                        }
-                    }
-                    
-                    float rating = sum / wordCount;
-                    pw.println(rating);
-                }
-            }
+        ArrayList<String> modifiedArrayList = new ArrayList<String>();
+        String[] words = sentence.split("\\s");
+        for(String w: words) {
+            modifiedArrayList.add(w);
         }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            if(sc != null) {
-                sc.close(); 
-            }
-            if(pw != null) {
-                pw.close(); 
-            }
-        }
+        
+        return modifiedArrayList;
     }
     
     /** 
@@ -279,27 +239,6 @@ public class RatingPredictor {
     }
     
     /** 
-     * Method to split the entire sentence at space delimiters
-     * @param sentence - A string containing a review.
-     * @return ArrayList<String> - The array list containing words of the 
-     * review split at spaces
-     */
-    public ArrayList<String> splitLine (String sentence) {
-        
-        if (sentence == null || sentence.length() == 0) {
-            return null;
-        }
-        
-        ArrayList<String> modifiedArrayList = new ArrayList<String>();
-        String[] words = sentence.split("\\s");
-        for(String w: words) {
-            modifiedArrayList.add(w);
-        }
-        
-        return modifiedArrayList;
-    }
-    
-    /** 
      * Method to remove stop words from the list of words
      * @param arrList - The array list of words.
      * @return ArrayList<String> - The array list containing no stop words
@@ -317,54 +256,6 @@ public class RatingPredictor {
         }
         
         return arrList;
-    }
-    
-    /** 
-     * Method to update the hash map with the appropriate values
-     * @param inCleanFile - The file containing cleaned data using 
-     * which the hashmap will be updated
-     * @return void
-     */
-    public void updateHashMap(String inCleanFile) {
-        
-        Scanner sc = null; 
-        ArrayList<String> cleanWords = new ArrayList<String>();
-
-        try {
-            File inputFile = new File(inCleanFile); 
-            sc = new Scanner(inputFile);
-            
-            while(sc.hasNextLine()) {
-                int rating = sc.nextInt();
-                String line = sc.nextLine(); 
-                cleanWords = splitLine(line);
-                cleanWords = removeEmptyWords(cleanWords);
-                
-                if (cleanWords == null) {
-                    continue;
-                }
-                
-                for (String word: cleanWords) {
-                    if (!wordFreqMap.containsKey(word)) {
-                        int[] arr = new int[] {rating, 1};
-                        wordFreqMap.put(word, arr);
-                    }
-                    else {
-                        int[] val = wordFreqMap.get(word);
-                        int[] arr = new int[] {val[0]+rating, val[1]+1};
-                        wordFreqMap.put(word, arr);
-                    }
-                }
-            }
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-        finally {
-            if(sc != null) {
-                sc.close(); 
-            }
-        }
     }
     
     /** 
@@ -453,5 +344,114 @@ public class RatingPredictor {
             }
         }
         
-    }    
+    } 
+    
+    /** 
+     * Method to update the hash map with the appropriate values
+     * @param inCleanFile - The file containing cleaned data using 
+     * which the hashmap will be updated
+     * @return void
+     */
+    public void updateHashMap(String inCleanFile) {
+        
+        Scanner sc = null; 
+        ArrayList<String> cleanWords = new ArrayList<String>();
+
+        try {
+            File inputFile = new File(inCleanFile); 
+            sc = new Scanner(inputFile);
+            
+            while(sc.hasNextLine()) {
+                int rating = sc.nextInt();
+                String line = sc.nextLine(); 
+                cleanWords = splitLine(line);
+                cleanWords = removeEmptyWords(cleanWords);
+                
+                if (cleanWords == null) {
+                    continue;
+                }
+                
+                for (String word: cleanWords) {
+                    if (!wordFreqMap.containsKey(word)) {
+                        int[] arr = new int[] {rating, 1};
+                        wordFreqMap.put(word, arr);
+                    }
+                    else {
+                        int[] val = wordFreqMap.get(word);
+                        int[] arr = new int[] {val[0]+rating, val[1]+1};
+                        wordFreqMap.put(word, arr);
+                    }
+                }
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            if(sc != null) {
+                sc.close(); 
+            }
+        }
+    }
+    
+    /** 
+     * Method to predict the ratings of the reviews read from a file
+     * @param inCleanFile - The cleaned version of the file containing only 
+     * reviews.
+     * @param outRatingsFile - The output file that will contain the 
+     * corresponding ratings for each review.
+     * @return void
+     */
+    public void rateReviews (String inCleanFile, String outRatingsFile) {
+        
+        Scanner sc = null; 
+        PrintWriter pw = null; 
+        ArrayList<String> cleanWords = new ArrayList<String>();
+        
+        try {
+            File inputFile = new File(inCleanFile); 
+            sc = new Scanner(inputFile); 
+            File outputFile = new File(outRatingsFile); 
+            pw = new PrintWriter(outputFile); 
+
+            while(sc.hasNextLine()) {
+                String line = sc.nextLine(); 
+                cleanWords = splitLine(line);
+                float default_rating = 2;
+                float sum = 0;
+                float wordCount = 0;
+                
+                if (cleanWords == null) {
+                    pw.println(default_rating);
+                }
+                
+                else {
+                    for (String word: cleanWords) {
+                        wordCount++;
+                        if (!wordFreqMap.containsKey(word)) {
+                            sum += 2;
+                        }
+                        else {
+                            int[] vals = wordFreqMap.get(word);
+                            sum += (float)vals[0] / (float)vals[1];
+                        }
+                    }
+                    
+                    float rating = sum / wordCount;
+                    pw.println(rating);
+                }
+            }
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            if(sc != null) {
+                sc.close(); 
+            }
+            if(pw != null) {
+                pw.close(); 
+            }
+        }
+    }
 }

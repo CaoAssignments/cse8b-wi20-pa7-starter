@@ -7,10 +7,10 @@ The objective of this assignment is to test your understanding of Collections. I
 
 In this assignment you’ll be doing the following:
 - Read a raw text file containing movie reviews and ratings. 
-- Read a file containing stopwords and create a hashset which will be used for cleaning the data.
+- Read a file containing stopwords and create a HashSet which will be used for cleaning the data.
 - Clean the data. (For example: Remove the punctuations and stopwords (e.g. is, and, the, etc.) from the reviews) and write the contents to a clean review file.
-- Create a hashmap which associates a word from the cleaned file to values which represent the rating and the count of the word in the given file. 
-- Use the hashmap between the words and their associated values and rate reviews from another file that doesn’t have any rating already.
+- Create a HashMap which associates a word from the cleaned file to values which represent the rating and the count of the word in the given file. 
+- Use the HashMap between the words and their associated values and rate reviews from another file that doesn’t have any rating already.
 - Write the ratings of the reviews to an output file.
 
 ## Know your data
@@ -48,224 +48,216 @@ where 4 is the rating and the text “The Jungle Book is awesome!” is the review.
 The raw data with only the reviews will be present in a file named rawReviews.txt. Your task is to predict the ratings for each of the reviews in this file.   
 
 Example:  
-The Jungle Book is awesome!
+The Jungle Book is awesome!  
 
 #### - `rawReviewRatingsBig.txt`<br/>
-A file structured similar to `rawReviewRatings.txt` but it has more number of reviews and rating pairs (basically a bigger dataset)
+A file structured similar to `rawReviewRatings.txt` but it has more number of reviews and rating pairs (basically a bigger dataset).
 
 #### - `rawReviewsBig.txt`<br/>
-A file structured similar to `rawReviews.txt` but it has more number of reviews (basically a bigger dataset) for which you need to predict the ratings.
+A file structured similar to `rawReviews.txt` but it has more number of reviews (basically a bigger dataset) for which you need to predict the ratings. 
 
 #### - `stopwords.txt`<br/>
 You have also been given a file called stopwords.txt which will contain all the stop words that you will need to filter out from your data as part of the process of cleaning the data. You will do this by creating a hashset of stop words read from this file and using the set to filter out the stop words from the reviews.
 
 Go through the files once to get an idea of how your data is structured.
 
-## Clean the data
+## RatingPredictor.java
 
+You can expected to create a class called `RatingPredictor.java` for this assignment. 
 
+### Instance variables:
 
+You should have the following instance variables in your class:  
 
+- `private HashMap<String, int[]> wordFreqMap`   
 
+This will be the hashmap in which you will store a string as your key and an integer array as the value. The string represents a word in the review. The first element in the integer array should hold the sum of the ratings of the reviews of which the word is a part of and the second element in the integer array should hold the count for the word (the number of times the word appears in the reviews altogether)   
 
+Example:   
+If the cleaned file contained only these two reviews:    
+4 jungle book awesome  
+3 jungle book fantastic  
 
+The HashMap `wordFreqMap` should contain these key-value pairs: 
+|Key|Values|
+|---|---| 
+|jungle|[7,2]|   
+|book|[7,2]| 
+|awesome|[4,1]|  
+|fantastic|[3,1]|    
 
+The word 'jungle' appears two times and the corresponding ratings are added up (4+3=7) to give the total rating and 2 is number of the times the word appears in all of the reviews combined.
 
+- `private<String> set`  
 
+This will be the hashset that stores all of the stopwords read from the `stopwords.txt` file.   
 
+### Constructor:
 
+- `public RatingPredictor()` 
 
-### OUTPUT FILES:
-- Cleaned Rated Review File: cleanReviewRatings.txt
-- Cleaned Unrated Review File: cleanReviews.txt
-- Ratings File: ratings.txt
+Use this non-parameterized constructor to initialize the instance variables.
 
+### Methods to clean the data:
 
-### OUTPUT FILES:
-- Cleaned Rated Review File: cleanReviewRatings.txt
-- Cleaned Unrated Review File: cleanReviews.txt
-- Ratings File: ratings.txt
+You need to have the have the following methods in your class which will be used to clean the data.      
 
+- `public ArrayList<String> splitLine (String sentence)`  
 
+This method takes in a String as a parameter. The String will contain the entire review and this method should split it into words and return an ArrayList of words.  
+Example:  
+input --> The Jungle-Book is a fantastic movie! It's the best!!   
+output --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the", "best!!") 
 
-This assignment is divided into two parts. The first part will test your debugging skills and the second part will focus on your understanding of the concepts of classes and objects.
+- `public ArrayList<String> replaceHyphensQuotes (ArrayList<String> words)` 
 
-The first part of the assignment will require you to go over a given piece of code, understand its implementation and fix the different kinds of errors in the code so that it passes all of the given test cases and few other hidden test cases. You will also be expected to complete a `README.md` in which you will highlight the error you found in the given code, followed by its fix and explanation.
+This methods takes in an ArrayList of words and splits the words in the ArrayList at the hyphens and single quotes and return a modified ArrayList of words.  
+Example:   
+input --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the", "best!!") 
+output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie!", "It", "s", "the", "best!!") 
 
-The second part of the assignment is an exercise in which you will create your own Matrix class with some variables and methods which include performing matrix addition, matrix multiplication and matrix transpose as described below in this writeup.
+- `public ArrayList<String> removePunctuation (ArrayList<String> words)`   
+ 
+This method should remove all the punctuation from the ArrayList of words and return a modified ArrayList of words. The following characters are considered as punctuations: ``!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~``  
+Example:   
+input --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie!", "It", "s", "the", "best!!")  
+output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s", "the", "best")  
 
-## Part 1: Debugging
+- `public ArrayList<String> removeWhiteSpaces (ArrayList<String> words)`
+  
+This method should remove all the leading and trailing white spaces from the ArrayList of words and return a modified ArrayList of words.   
+Example:   
+input --> ("The", "Jungle", "Book   ", "is", "a", "    fantastic", "movie", "  It", "s", "the  ", "best")   
+output --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s", "the", "best")   
 
-### FunWithIntArrays.java
-This class is designed to have some useful features for int arrays but is marred with errors (i.e. compile, runtime and logic errors). There are a number of methods in the class whose expected behavior is commented. You need to find and fix all the errors in this file and submit this file to Gradescope.
+- `public ArrayList<String> removeEmptyWords (ArrayList<String> words)`  
 
-### ArraysTester.java
-This code tests the class FunWithIntArrays. This file is to help you test your changes in the FunWithIntArrays class. You do not have to upload this file on Gradescope when turning in your work.
+This method should remove all empty words from the ArrayList of words and return a modified ArrayList of words.  
+Example:   
+input --> ("The", "Jungle", "Book", "", "", "fantastic", "movie", "It", "s", "", "best")   
+output --> ("The", "Jungle", "Book", "fantastic", "movie", "It", "s", "best") 
 
-Create a new file called `README.md`. Write your name, CSE 8B login, and date at the top. 
+- `public ArrayList<String> removeSingleLetterWords (ArrayList<String> words)`   
 
-_Make sure to read this whole section before beginning this portion of the assignment._
+This method should remove all single letter words from the ArrayList of words and return a modified ArrayList of words.   
+Example:    
+input --> ("The", "Jungle", "Book", "is", "a", "fantastic", "movie", "It", "s", "the", "best")     
+output --> ("The", "Jungle", "Book", "is", "fantastic", "movie", "It", "the", "best")   
 
-First, try to compile the FunWithIntArrays.java file. 
-```
-javac FunWithIntArrays.java
-```
-You will notice that several errors will occur and that the class will not be compiled. **Your task is to edit the FunWithIntArrays.java file in order to fix and record these errors.**
+- `public ArrayList<String> toLowerCase (ArrayList<String> words)`  
 
-When you believe you have fixed the errors in the program, you can attempt to compile again with the `javac` command. If it compiles successfully, it will generate a file named `FunWithIntArrays.class`. This is the compiled version of `FunWithIntArrays.java`. Once this works, compile `ArraysTester.java` with `javac`. Then you can run the program with the command `java ArraysTester`.
+This method should make all the words in the ArrayList to lower case and return a modified ArrayList of words.   
+Example:     
+input --> ("The", "Jungle", "Book", "is", "fantastic", "movie", "It", "the", "best")     
+output --> ("the", "jungle", "book", "is", "fantastic", "movie", "it", "the", "best")   
 
-### Your Task
-1. Make a note of every error you find in `FunWithIntArrays.java` in README.md. Debug and fix these errors. List the bugs you found in `FunWithIntArrays.java` with a clear and concise description of why the bugs were wrong. Do not just list bugs you encountered in the assignment; your descriptions must detail the issues about the bug. They must be specific to `FunWithIntArrays.java`.
-    - These errors can consist of compile errors, runtime errors, or logic errors (incorrect results). Logic errors will not necessarily cause the program to crash, so compare your results and the expected results carefully!
-    - Fixing one error may get rid of multiple compiler warnings. This counts as one single error.
-    - Minor misspellings (e.g. "Creating Initial Array" is spelled "Creating Initial Aray" in the output) are not errors, unless they cause compile/runtime/logic errors (e.g. some variable is misspelled). You may fix these if it makes you feel better.
-1. Compile the ArraysTester.java test driver (original file).
-1. Run ArraysTester. See if your output matches what is given below.
+- `public ArrayList<String> removeStopWords (ArrayList<String> arrList)`
 
-### ArraysTester Expected Output
-```
-Creating Initial Array:
-7, 4, 1, 8, 12, 32, 64, 13 
+This method should remove all the stop words in the ArrayList and return a modified ArrayList of words. You need to create a HashSet from the given `stopwords.txt` file and then use the HashSet to filter out those stop words from the given ArrayList.  
+Example:     
+input --> ("the", "jungle", "book", "is", "fantastic", "movie", "it", "the", "best")       
+output --> ("jungle", "book", "fantastic", "movie", "best")      
 
-Creating Array Copy:
-7, 4, 1, 8, 12, 32, 64, 13 
+### Methods to help with the rating prediction task:
 
-Max element - Min element is: 63
+- `public void createStopWordsSet (String stopWordsInFile, String stopWordsOutFile)`  
 
-Average value is: 17.625
-
-Testing Reversed Array
-13, 64, 32, 12, 8, 1, 4, 7
-
-Testing Sorted Array
-1, 4, 7, 8, 12, 13, 32, 64
-```
-
-### How To Document: Bugs
-
-For example, if you fixed the for-loop below to avoid going out of bounds:
-```java
-for (int i = array.length; i >= 0; i--)
-```
-Your entry in README.md would look like:
-```
-Author: __Name__
-Login: cs8bwi20__
-Date: 2020 January 18th
-
-## Debugging Code
-
-Runtime Error - Array Index out of Bounds
-Incorrect: for (int i = array.length; i >= 0; i--) 
-Fix: for (int i = array.length - 1; i >= 0; i--) 
-Explanation: Correction starts at the last element of the array which is at index array.length-1 rather than array.length.
-// <Extra spacing>
-<Next Error>
-```
-Put a newline between each error for readability. See above box where it says "\<Extra spacing>". 
-
-## Part 2: Classes and Objects - Matrix Operations
-
-In this part of the assignment, you need to design a class named `Matrix` (the file name should be named `Matrix.java`) Your class should contain the following `private` class variables:
-- An integer `row` that will hold the number of rows the matrix will have.
-- An integer `column` that will hold the number of columns the matrix will have.
-- A 2D integer array `arr` that will hold the elements of the matrix.
-
-You need to also include the following two `private static final` strings in your class. These strings should be printed when two matrices cannot be added or multiplied respectively.
-- String `ADD_ERROR` = "Matrices cannot be added"
-- String `MULTIPLY_ERROR` = "Matrices cannot be multiplied"
-
-Your class should contain the following methods:
-#### - `public Matrix()`<br/>
-The default constructor for `Matrix` class which will initialize your class variables row, column to 0 and the 2D integer array to null.<br/>
-
-#### - `public Matrix(int row, int column)`<br/>
-The constructor for `Matrix` class which takes the integer inputs `row` and `column` (normal one-based indexing) and will be used for initializing your class variables row, column and the 2D integer array. For example, creating an object as `new Matrix(2,2)` should create a matrix with 2 rows and 2 columns. If the parameters passed are invalid (negative numbers) then initialize your class variables row, column to 0 and the 2D integer array to null<br/>
-
-#### - `public Matrix(Matrix mat)`<br/>
-The deep copy constructor for `Matrix` class which takes the Matrix object `mat` as an input and creates a deep copy of the matrix. The purpose of a deep copy constructor is to copy the contents of one object to another object and changing the copied object shouldn't change the contents of the original.<br/>
-
-#### - `public boolean setElement(int r, int c, int element)`<br/>
-A setter method that will set the value of a particular element in the matrix. It should take the row number, column number (in the zero-based indexing format) and the element to be entered in that particular cell as the inputs. For example, `setElement(1,1,20)` should set the element at 2nd row and 2nd column to the value 20. If the passed indices are valid, then the element can be set and it should return true after setting the element, otherwise return false. An invalid index would be any negative number or a number that exceeds the number of rows and columns in the matrix (as per zero indexing). <br/>
-
-#### - `public Integer getElement(int r, int c)`<br/>
-A getter method that will return the value of the element at the specified index (in the zero-based indexing format). It will take the row number and column number as the inputs and will return the value of the element at that index as an Integer. Integer class is a wrapper class for the primitive type int. However, you need not worry about creating an Integer instance. Just returning a variable of type int should suffice as it will be converted to an Integer object. For example, `getElement(1,1)` should return the element at 2nd row and 2nd column. If the passed indices are invalid, then return null (since the return type is an Integer class). An invalid index would be any negative number or a number that exceeds the number of rows and columns in the matrix (as per zero indexing).<br/>
-
-#### - `public int getRows()`<br/>
-A getter method that will return the number of rows in the matrix.<br/>
-
-#### - `public int getColumns()`<br/>
-A getter method that will return the number of columns in the matrix.<br/>
-
-#### - `public String toString()`<br/>
-A method to print the matrix out as a string in the specified format. This method should return a string as follows. For example: <br/>
-1 2 3 <br/>
-4 5 6 <br/>
-7 8 9 <br/>
-
-Add one space character after each element in the row. Add a new line character after each row. (Add a new line character even after the last row). Make sure you add the `@Override` for the method signature. You can directly pass the variable that stores a reference to a Matrix object to either print() or println() and doing so will call that object's toString() function which is what you have implemented here. For example: you can directly use `System.out.println(m);` where m is an instance of the Matrix class.
-
-#### - `public Matrix add(Matrix y)`<br/>
-A method called `add` that will perform matrix addtion. The method will be called as follows: `x.add(y)` where x and y are Matrix objects. Thus, the method will take a matrix object as the input parameter and will perform addition by considering the object `x` that is calling the function as the first matrix and the matrix object `y` passed to the function as the second matrix. So you need to perform x+y and return the sum matrix object. If addition cannot be performed on the two matrices, print the contents of `ADD_ERROR` string and return null. If a null object is passed to the method, it should just return null.<br/> 
-
-**Remember that the original `x` and `y` matrices should not be modified.**<br/>
-
-A quick refresher on how matrix addition is done. Matrix addition can be performed between two matrices only if the number of rows  and number of columns match between the two matrices. (Make sure to include this check in your code and print out the `ADD_ERROR` string if the condition fails and return null). Adding the corresonding elements in the two matrices will give you the sum matrix. For example:<br/> 
-![matrix addition](Images/matrix_addition_1.png)
-
-#### - `public Matrix multiply(Matrix y)`<br/>
-A method called `multiply` that will perform matrix multiplication. The method will be called as follows: `x.multiply(y)` where x and y are Matrix objects. Thus, the method will take a matrix object as the input parameter and will perform multiplication by considering the object `x` that is calling the function as the first matrix and the matrix object `y` passed to the function as the second matrix. (Do **NOT** interchange this order as matrix multiplication is **NOT** commutative) So you need to perform x*y and return the product matrix object. If multiplication cannot be performed on the two matrices, print the contents of `MULTIPLY_ERROR` string and return null. If a null object is passed to the method, it should just return null.<br/>
-
-**Remember that the original `x` and `y` matrices should not be modified.**<br/>
-
-A quick refresher on how matrix multiplication is done. Matrix multiplication can be performed between two matrices only if the number of columns in the first matrix matches the number of rows in the second matrix. (Make sure to include this check in your code and print out the `MULTIPLY_ERROR` string if the condition fails and return null). Multiplying the elements of a row in the first matrix with the elements of a column in the second matrix and summing them will give the product at one of the indices in the product matrix. For example:<br/> 
-![matrix multiplication](Images/matrix_multiplication_1.png)
-
-For more detailed explanation on how to perform matrix multiplication, you can check this [link](https://www.mathsisfun.com/algebra/matrix-multiplying.html).
-
-#### - `public Matrix transpose()`<br/>
-A method called `transpose` that will perform matrix transpose. The method will be called as follows `x.transpose()` where x is a Matrix object. It should return the transposed version of the `x` matix as a Matrix object. Remember that the matrix `x` should not be changed, the function should just return the transpose of the matrix `x`.<br/>
-
-A quick refresher on how matrix transpose is done. Transpose is an operation which switches the rows and columns of a matrix. In other words, the rows become columns and columns become rows. For example:<br/>
-
-![matrix transpose](Images/matrix_transpose.png)
-
-Once you are done with designing the `Matrix` class, you can test it by running the `MatrixTester.java` file which contains few test cases with which you can verify if your code is working properly. You do not have to upload this file on Gradescope when turning in your work.
-
-1. Complete coding and compiling the Matrix.java file.
-2. Compile and run the MatrixTester.java. See if your output matches what is given below.
-
-### MatrixTester Expected Output
-```
-Matrix m:
-1 2 3 
-4 5 6 
-
-Number of Columns in Matrix m: 3
-Number of Rows in Matrix m: 2
-Element at 2nd row and 3rd Column in Matrix m: 6
-Testing Matrix m + Matrix n
-2 4 6 
-8 10 12 
-
-Testing Matrix m + Matrix l
-Matrices cannot be added
-Testing Matrix n * Matrix l
-22 28 
-49 64 
-
-Testing Matrix m * Matrix n
-Matrices cannot be multiplied
-Transpose of Matrix m:
-1 4 
-2 5 
-3 6 
-
-```
+Read the `stopwords.txt` as the input file and create a HashSet of stop words and also output the HashSet into an output file called `uniqueStopwords.txt`. This output file should contain one stop word in each line and should not have any duplicate stop words.  
+
+- `public void cleanData (String inFile, String outFile, boolean ratingIncluded)`   
+
+This method should read a raw input file and output a cleaned data file:
+For example:
+| Input File Name | Output File Name |
+| --------------- | ---------------- |
+| `rawReviewRatings.txt` | `cleanReviewRatings.txt` |
+| `rawReviews.txt` | `cleanReviews.txt` |
+| `rawReviewRatingsBig.txt` | `cleanReviewRatings.txt` |
+| `rawReviewsBig.txt` | `cleanReviews.txt` |
+
+You can read in the reviews line by line and call in the methods for cleaning the data one after the other which were described above: splitLine(), replaceHyphensQuotes(), removePunctuation(), removeWhiteSpaces(), removeEmptyWords(), removeSingleLetterWords(), toLowerCase(), removeStopWords().   
+
+The cleaned files should have the same structure as the input files i.e; if the file had ratings followed by review then your output file should also have rating followed by cleaned review. If the input file has only reviews then the output file should have only cleaned reviews. The boolean flag ratingIncluded cab be used to differentiate between files that have rating and reviews (ratingIncluded = true) and files that have only reviews (ratingIncluded = false).   
+
+For example:   
+
+If the input file `rawReviewRatings.txt` file contains:  
+4 The Jungle Book is awesome shouldn't!
+2 "The Lion King" is awe-inspiring !
+0 Jack and Jill is worst!
+1 " Finding Dory" is good .
+3 Zootopia    is fantastic.
+4 Jungle Book is fantastic.
+3 Lion King is fantastic.
+
+Then the output file `cleanReviewRatings.txt` file should contain:  
+4 jungle book awesome 
+2 lion king awe inspiring 
+0 jack jill worst 
+1 finding dory good 
+3 zootopia fantastic 
+4 jungle book fantastic 
+3 lion king fantastic 
+
+- `public void updateHashMap(String inCleanFile)`   
+
+This method should take in the cleaned data file as the input and use it to update the HashMap as explained before in the instance variable section.
+
+For example: The HashMap for the above cleaned data file `cleanReviewRatings.txt` should be as follows:
+|Key|Values|
+|---|---| 
+|king|[5, 2]|
+|book|[8, 2]|
+|inspiring|[2, 1]|
+|finding|[1, 1]|
+|good|[1, 1]|
+|lion|[5, 2]|
+|awe|[2, 1]|
+|jack|[0, 1]|
+|jill|[0, 1]|
+|zootopia|[3, 1]|
+|awesome|[4, 1]|
+|fantastic|[10, 3]|
+|worst|[0, 1]|
+|jungle|[8, 2]|
+|dory|[1, 1]|  
+ 
+- `public void rateReviews (String inCleanFile, String outRatingsFile)`   
+
+Once you have the cleaned file (for example: cleaned data file is `cleanReviews.txt` for the given raw review file i.e; `rawReviews.txt`), you will predict the ratings for the reviews given in this cleaned file. Using the HashMap that you created in the previous step, you are going to read new unrated reviews from a cleaned file (e.g. `cleanedReviews.txt`) and predict a rating for each review in this file. The predicted rating for each review is written to an output file named `ratings.txt`.    
+
+How do we predict the ratings for the unrated reviews?     
+
+- Rate each review by finding the rating for each word from the HashMap that was updated previously. The rating for a line of review is the average value of the rating of all the words in the review. If some word in this unrated review is not found in the HashMap, then that word is given a neutral rating of 2. If a review is empty (i.e. the review contains no words in it), then such a review is also given a neutral rating of 2.  
+
+e.g. Let see how we computed the rating for the 2nd review in cleanReviews.txt (i.e. “lion king fantastic”). We lookup the HashMap that we created before and get the average rating for each word in this review. The average ratings of each word in this review is shown below:  
+lion: 5/2 = 2.5   
+king: 5/2 = 2.5  
+fantastic: 10/3 = 3.3333333  
+
+Rating for this line = (2.5 + 2.5 + 3.3333333) / 3 = 2.7777777  
+We are dividing by 3 since this review contains 3 words in total.  
+
+Based on these individual values, this line gets and average review of 2.7777777 which will be written in the `ratings.txt` file.  
+
+Another example: “finding nemo great”  
+Finding: 1  
+Nemo: 2 (because it is NOT found in the HashMap)  
+great: 2 (because it is also NOT found in the HashMap)  
+
+Rating for this line = (1 + 2 + 2) / 3 = 1.666666   
+
+Write the corresponding ratings for all the reviews to an output file named `ratings.txt`.   
+
+## Testing
+You can test your code on the given small dataset first and then move on to testing your code on the given bigger dataset. We will be testing your code on another unseen bigger dataset, thus do not try to hard code any of the ratings.
+The flow of the overall code is shown in the figure below:  
+
+![flowchart](Images/flowchart.png)
 
 ## Student Satisfaction Survey
 
-Please fill out our [student satisfaction survey](https://docs.google.com/forms/d/1vP64JWd7kj-zN53H6LRRO6YwVBeewma68VdCMbOoTig/edit). We are changing how we approach giving assignments and would like to hear about your experiences. After filling out the survey, please write the following sentence at the top of your `README.md` file: **I have completed the student satisfaction survey.** 
+Please fill out our [student satisfaction survey](https://docs.google.com/forms/d/15zfhZg0UbGM8HsXVs_RWgKzgjxQhqrU50h-4hg6rHa8/edit). We are changing how we approach giving assignments and would like to hear about your experiences.
 
 ## Style
 **Make sure you follow the below guidelines for styling since we will be grading you on it.**
@@ -287,8 +279,6 @@ A full [style guideline](https://sites.google.com/eng.ucsd.edu/cse8b-winter2020/
 
 ## Submission
 Required Submission Files
-- `FunWithIntArrays.java`
-- `Matrix.java`
-- `README.md`
+- `RatingPredictor.java`
 
 *Good Luck!*

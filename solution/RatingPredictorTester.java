@@ -3,7 +3,7 @@
  * It contains few basic testing for this assignment
  * @author  CSE8B WI20 PA Team
  */
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * This class is used to test the functions in RatingPredictor class.
@@ -39,6 +39,8 @@ public class RatingPredictorTester {
         
         // A sample sentence to test the functions
         String testSentence = "The Jungle-Book is     a fantastic movie! It's the best!!";
+        ArrayList<String> testList = new ArrayList<String>(
+                        Arrays.asList("the", "jungle", "book", "is", "fantastic", "movie", "it", "the", "best"));
         ArrayList<String> alist;
         
         System.out.println("Testing splitLine:");
@@ -86,21 +88,21 @@ public class RatingPredictorTester {
         // Predicting ratings for the test file
         rp.rateReviews(cleanTestFile, ratingsFile);
         
-        // Testing on the Bigger Data set
-        RatingPredictor rpBig = new RatingPredictor();
-        
-        // Testing creation of unique stop words / hash set.
-        rpBig.createStopWordsSet(stopwordsFile, uniqueStopwordsFile);
-        
-        // Cleaning the big input file and also the big test file
-        rpBig.cleanData(inputFileBig, cleanInputFileBig, true);
-        rpBig.cleanData(testFileBig, cleanTestFileBig, false);
-        
-        // Updating Hash map for the bigger data set
-        rpBig.updateHashMap(cleanInputFileBig);
-        
-        // Predicting ratings for the big test file
-        rpBig.rateReviews(cleanTestFileBig, ratingsFileBig);
+//        // Testing on the Bigger Data set
+//        RatingPredictor rpBig = new RatingPredictor();
+//        
+//        // Testing creation of unique stop words / hash set.
+//        rpBig.createStopWordsSet(stopwordsFile, uniqueStopwordsFile);
+//        
+//        // Cleaning the big input file and also the big test file
+//        rpBig.cleanData(inputFileBig, cleanInputFileBig, true);
+//        rpBig.cleanData(testFileBig, cleanTestFileBig, false);
+//        
+//        // Updating Hash map for the bigger data set
+//        rpBig.updateHashMap(cleanInputFileBig);
+//        
+//        // Predicting ratings for the big test file
+//        rpBig.rateReviews(cleanTestFileBig, ratingsFileBig);
     }
 
 }
