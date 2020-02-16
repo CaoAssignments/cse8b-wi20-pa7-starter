@@ -30,7 +30,7 @@ You have been given the following input files for small data and big data.
 
 A brief description of what each file contains:
 
-### - `rawReviewRatings.txt`<br/>
+#### - `rawReviewRatings.txt`<br/>
 The raw data with the reviews and the rating will be present in a file named rawReviewRatings.txt. Every review is given a rating between 0 - 4 (both inclusive). The following are interpretation of the rating values:  
 0 = Negative  
 1 = Somewhat Negative  
