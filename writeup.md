@@ -1,7 +1,92 @@
-# PA 3: Debugging + Classes and Objects
+# PA 7: Collections
 
 ## Assignment Overview
-**Due date: Thursday, January 30 @ 11:59PM**
+**Due date: Thursday, February 27 @ 11:59PM**
+
+The objective of this assignment is to test your understanding of Collections. In this assignment, you will be implementing a version of the bag of words model used in Machine Learning. You will create a program that will be able to make a prediction of the ratings of movie reviews based on some learning it did beforehand using some reviews that already had ratings associated with them. Although it is one of the very basic primitive models, it gives you an introduction to the world of Machine Learning.
+
+In this assignment you’ll be doing the following:
+- Read a raw text file containing movie reviews and ratings. 
+- Read a file containing stopwords and create a hashset which will be used for cleaning the data.
+- Clean the data. (For example: Remove the punctuations and stopwords (e.g. is, and, the, etc.) from the reviews) and write the contents to a clean review file.
+- Create a hashmap which associates a word from the cleaned file to values which represent the rating and the count of the word in the given file. 
+- Use the hashmap between the words and their associated values and rate reviews from another file that doesn’t have any rating already.
+- Write the ratings of the reviews to an output file.
+
+## Know your data
+
+You have been given the following input files for small data and big data. 
+
+### Small Data Input Files:
+- Rated Review File: rawReviewRatings.txt
+- Unrated Review File: rawReviews.txt
+
+### Big Data Input Files:
+- Rated Review File: rawReviewRatingsBig.txt
+- Unrated Review File: rawReviewsBig.txt
+
+### Stop words Input File:
+- Stopwords File: stopwords.txt
+
+A brief description of what each file contains:
+
+#### - `rawReviewRatings.txt`<br/>
+The raw data with the reviews and the rating will be present in a file named rawReviewRatings.txt. Every review is given a rating between 0 - 4 (both inclusive). The following are interpretation of the rating values:  
+0 = Negative  
+1 = Somewhat Negative  
+2 = Neutral  
+3 = Somewhat Positive  
+4 = Positive  
+Each line of review follows the following format:  
+<rating> <review>  
+
+Example:  
+4 The Jungle Book is awesome!  
+where 4 is the rating and the text “The Jungle Book is awesome!” is the review.  
+
+#### - `rawReviews.txt`<br/>
+The raw data with only the reviews will be present in a file named rawReviews.txt. Your task is to predict the ratings for each of the reviews in this file.   
+
+Example:  
+The Jungle Book is awesome!
+
+#### - `rawReviewRatingsBig.txt`<br/>
+A file structured similar to `rawReviewRatings.txt` but it has more number of reviews and rating pairs (basically a bigger dataset)
+
+#### - `rawReviewsBig.txt`<br/>
+A file structured similar to `rawReviews.txt` but it has more number of reviews (basically a bigger dataset) for which you need to predict the ratings.
+
+#### - `stopwords.txt`<br/>
+You have also been given a file called stopwords.txt which will contain all the stop words that you will need to filter out from your data as part of the process of cleaning the data. You will do this by creating a hashset of stop words read from this file and using the set to filter out the stop words from the reviews.
+
+Go through the files once to get an idea of how your data is structured.
+
+## Clean the data
+
+
+
+
+
+
+
+
+
+
+
+
+
+### OUTPUT FILES:
+- Cleaned Rated Review File: cleanReviewRatings.txt
+- Cleaned Unrated Review File: cleanReviews.txt
+- Ratings File: ratings.txt
+
+
+### OUTPUT FILES:
+- Cleaned Rated Review File: cleanReviewRatings.txt
+- Cleaned Unrated Review File: cleanReviews.txt
+- Ratings File: ratings.txt
+
+
 
 This assignment is divided into two parts. The first part will test your debugging skills and the second part will focus on your understanding of the concepts of classes and objects.
 
