@@ -100,7 +100,7 @@ Use this non-parameterized constructor to initialize the instance variables.
 
 ### Methods to clean the data:
 
-You need to have the have the following methods in your class which will be used to clean the data.      
+You need to have the have the following methods in your class which will be used to clean the data. In each of the following methods which help in cleaning data, if the input parameter is null or of length 0, then return `null`.     
 
 #### - `public ArrayList<String> splitLine (String sentence)`  
 
