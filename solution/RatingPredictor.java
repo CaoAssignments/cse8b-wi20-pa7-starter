@@ -417,9 +417,9 @@ public class RatingPredictor {
             while(sc.hasNextLine()) {
                 String line = sc.nextLine(); 
                 cleanWords = splitLine(line);
-                float default_rating = 2;
-                float sum = 0;
-                float wordCount = 0;
+                float default_rating = 2.0f;
+                float sum = 0.0f;
+                float wordCount = 0.0f;
                 
                 if (cleanWords == null) {
                     pw.println(default_rating);
@@ -429,7 +429,7 @@ public class RatingPredictor {
                     for (String word: cleanWords) {
                         wordCount++;
                         if (!wordFreqMap.containsKey(word)) {
-                            sum += 2;
+                            sum += 2.0f;
                         }
                         else {
                             int[] vals = wordFreqMap.get(word);

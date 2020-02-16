@@ -88,21 +88,21 @@ public class RatingPredictorTester {
         // Predicting ratings for the test file
         rp.rateReviews(cleanTestFile, ratingsFile);
         
-//        // Testing on the Bigger Data set
-//        RatingPredictor rpBig = new RatingPredictor();
-//        
-//        // Testing creation of unique stop words / hash set.
-//        rpBig.createStopWordsSet(stopwordsFile, uniqueStopwordsFile);
-//        
-//        // Cleaning the big input file and also the big test file
-//        rpBig.cleanData(inputFileBig, cleanInputFileBig, true);
-//        rpBig.cleanData(testFileBig, cleanTestFileBig, false);
-//        
-//        // Updating Hash map for the bigger data set
-//        rpBig.updateHashMap(cleanInputFileBig);
-//        
-//        // Predicting ratings for the big test file
-//        rpBig.rateReviews(cleanTestFileBig, ratingsFileBig);
+        // Testing on the Bigger Data set
+        RatingPredictor rpBig = new RatingPredictor();
+        
+        // Testing creation of unique stop words / hash set.
+        rpBig.createStopWordsSet(stopwordsFile, uniqueStopwordsFile);
+        
+        // Cleaning the big input file and also the big test file
+        rpBig.cleanData(inputFileBig, cleanInputFileBig, true);
+        rpBig.cleanData(testFileBig, cleanTestFileBig, false);
+        
+        // Updating Hash map for the bigger data set
+        rpBig.updateHashMap(cleanInputFileBig);
+        
+        // Predicting ratings for the big test file
+        rpBig.rateReviews(cleanTestFileBig, ratingsFileBig);
     }
 
 }
