@@ -1,11 +1,11 @@
 import java.io.*;
 import java.util.*;
 
-public class RatingPredictor {
+public class RatingPredictor2 {
 
     HashMap<String, int[]> wordFreqMap; 
     
-    public RatingPredictor() {
+    public RatingPredictor2() {
         wordFreqMap = new HashMap<>();
     }
     
@@ -17,6 +17,7 @@ public class RatingPredictor {
         
         ArrayList<String> modifiedArrayList = new ArrayList<String>();
         String[] words = sentence.split("[-\\s]");
+        
         
         for(int i=0; i<words.length; i++) {
             words[i] = words[i].replaceAll("\\p{Punct}","");
@@ -35,7 +36,7 @@ public class RatingPredictor {
         Scanner sc = null; 
         
         try {
-            String stopWordsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/src/stopwords.txt";
+            String stopWordsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/starter/stopwords.txt";
             File inputFile = new File(stopWordsFile); 
             sc = new Scanner(inputFile); 
 
@@ -191,10 +192,10 @@ public class RatingPredictor {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        RatingPredictor rp = new RatingPredictor();
+        RatingPredictor2 rp = new RatingPredictor2();
         
-        String initialFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/src/rawReviewRatings.txt";
-        String cleanDataFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/src/cleanReviewRatings.txt";
+        String initialFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/starter/rawReviewRatings.txt";
+        String cleanDataFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/starter/cleanReviewRatings.txt";
         rp.cleanData(initialFile, cleanDataFile, true);
         rp.readCleanData(cleanDataFile);
         
@@ -202,9 +203,9 @@ public class RatingPredictor {
             System.out.print(entry.getKey() + ":" + Arrays.toString(entry.getValue()));
         }
         
-        String reviewsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/src/rawReviews.txt";
-        String cleanReviewsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/src/cleanReviews.txt";
-        String ratingsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/src/ratings.txt";
+        String reviewsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/starter/rawReviews.txt";
+        String cleanReviewsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/starter/cleanReviews.txt";
+        String ratingsFile = "C:/Users/winny/eclipse-workspace/cse8b-wi20-pa7/starter/ratings.txt";
         rp.cleanData(reviewsFile, cleanReviewsFile, false);
         rp.predictRatings(cleanReviewsFile, ratingsFile);
     }
