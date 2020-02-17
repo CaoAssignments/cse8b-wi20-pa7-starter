@@ -14,7 +14,7 @@ import java.util.*;
 public class RatingPredictor {
     
     private HashMap<String, int[]> wordFreqMap; 
-    private HashSet<String> set;
+    private HashSet<String> stopWords;
     
     /** 
      * Constructor for the Rating Predictor class 
@@ -22,7 +22,7 @@ public class RatingPredictor {
      */
     public RatingPredictor() {
         wordFreqMap = new HashMap<>();
-        set = new HashSet<String>();
+        stopWords = new HashSet<String>();
     }
     
     /** 
@@ -48,10 +48,10 @@ public class RatingPredictor {
             
             while(sc.hasNextLine()) {
                 String line = sc.nextLine(); 
-                set.add(line);   
+                stopWords.add(line);   
             }
             
-            for (String w: set) {
+            for (String w: stopWords) {
                 pw.println(w);
             }
         }
@@ -213,7 +213,7 @@ public class RatingPredictor {
      * hyphens and quotes (words previously containing these two characters 
      * are split into multiple words)
      */
-    public ArrayList<String> replaceHyphensQuotes (ArrayList<String> words) {
+    public ArrayList<String> splitAtHyphensAndQuotes (ArrayList<String> words) {
         
         ArrayList<String> modifiedArrayList = new ArrayList<String>();
         
@@ -249,7 +249,7 @@ public class RatingPredictor {
             return null;
         }
         
-        for (String stopword: this.set) {
+        for (String stopword: this.stopWords) {
             if (arrList.contains(stopword)) {
                 arrList.removeAll(Collections.singleton(stopword));
             }
@@ -294,7 +294,7 @@ public class RatingPredictor {
                 wordList = splitLine(line); 
                 
                 //Replace hyphens and single quotes with spaces.
-                wordList = replaceHyphensQuotes(wordList);
+                wordList = splitAtHyphensAndQuotes(wordList);
                 
                 //Remove the punctuation marks from the words.
                 wordList = removePunctuation(wordList);

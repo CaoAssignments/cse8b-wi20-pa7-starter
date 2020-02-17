@@ -47,8 +47,8 @@ public class RatingPredictorTester {
         alist = rp.splitLine(testSentence);
         System.out.println(alist);
         
-        System.out.println("Testing replaceHyphensQuotes:");
-        alist = rp.replaceHyphensQuotes(alist);
+        System.out.println("Testing splitAtHyphensAndQuotes:");
+        alist = rp.splitAtHyphensAndQuotes(alist);
         System.out.println(alist);
         
         System.out.println("Testing removePunctuation:");

@@ -3,7 +3,7 @@
 ## Assignment Overview
 **Due date: Thursday, February 27 @ 11:59PM**
 
-The objective of this assignment is to test your understanding of Collections. In this assignment, you will be implementing a version of the bag of words model used in Machine Learning. You will create a program that will be able to make a prediction of the ratings of movie reviews based on some learning it did beforehand using some reviews that already had ratings associated with them. Although it is one of the very basic primitive models, it gives you an introduction to the world of Machine Learning.
+The objective of this assignment is to test your understanding of Collections. You will learn to work with ArrayLists, HashMaps and HashSets primarily. In this assignment, you will be implementing a version of the bag of words model used in Machine Learning. You will create a program that will be able to make a prediction of the ratings of movie reviews based on some learning it did beforehand using some reviews that already had ratings associated with them. Although it is one of the very basic primitive models, it gives you an introduction to the world of Machine Learning.
 
 In this assignment you’ll be doing the following:
 - Read a raw text file containing movie reviews and ratings. 
@@ -18,20 +18,20 @@ In this assignment you’ll be doing the following:
 You have been given the following input files for small data and big data. 
 
 ### Small Data Input Files:
-- Rated Review File: rawReviewRatings.txt
-- Unrated Review File: rawReviews.txt
+- Rated Review File: `rawReviewRatings.txt`
+- Unrated Review File: `rawReviews.txt`
 
 ### Big Data Input Files:
-- Rated Review File: rawReviewRatingsBig.txt
-- Unrated Review File: rawReviewsBig.txt
+- Rated Review File: `rawReviewRatingsBig.txt`
+- Unrated Review File: `rawReviewsBig.txt`
 
 ### Stop words Input File:
-- Stopwords File: stopwords.txt
+- Stopwords File: `stopwords.txt`
 
 A brief description of what each file contains:
 
 #### - `rawReviewRatings.txt`<br/>
-The raw data with the reviews and the rating will be present in a file named rawReviewRatings.txt. Every review is given a rating between 0 - 4 (both inclusive). The following are interpretation of the rating values:  
+The raw data with the reviews and the rating will be present in a file named `rawReviewRatings.txt`. Every review is given a rating between 0 - 4 (both inclusive). The following are interpretation of the rating values:  
 0 = Negative  
 1 = Somewhat Negative  
 2 = Neutral  
@@ -45,7 +45,7 @@ Example:
 where 4 is the rating and the text “The Jungle Book is awesome!” is the review.  
 
 #### - `rawReviews.txt`<br/>
-The raw data with only the reviews will be present in a file named rawReviews.txt. Your task is to predict the ratings for each of the reviews in this file.   
+The raw data with only the reviews will be present in a file named `rawReviews.txt`. Your task is to predict the ratings for each of the reviews in this file.   
 
 Example:  
 The Jungle Book is awesome!  
@@ -57,13 +57,13 @@ A file structured similar to `rawReviewRatings.txt` but it has more number of re
 A file structured similar to `rawReviews.txt` but it has more number of reviews (basically a bigger dataset) for which you need to predict the ratings. 
 
 #### - `stopwords.txt`<br/>
-You have also been given a file called stopwords.txt which will contain all the stop words that you will need to filter out from your data as part of the process of cleaning the data. You will do this by creating a hashset of stop words read from this file and using the set to filter out the stop words from the reviews.
+You have also been given a file called `stopwords.txt` which will contain all the stop words that you will need to filter out from your data as part of the process of cleaning the data. You will do this by creating a HashSet of stop words read from this file and using the set to filter out the stop words from the reviews.
 
 Go through the files once to get an idea of how your data is structured.
 
 ## RatingPredictor.java
 
-You can expected to create a class called `RatingPredictor.java` for this assignment. 
+You are expected to create a class called `RatingPredictor.java` for this assignment. 
 
 ### Instance variables:
 
@@ -86,9 +86,9 @@ The HashMap `wordFreqMap` should contain these key-value pairs:
 |awesome|[4,1]|  
 |fantastic|[3,1]|    
 
-The word 'jungle' appears two times and the corresponding ratings are added up (4+3=7) to give the total rating and 2 is number of the times the word appears in all of the reviews combined.
+The word 'jungle' appears two times and the corresponding ratings are added up (4+3=7) to give the total rating and 2 is the number of the times the word appears in all of the reviews combined.
 
-#### - `private<String> set`  
+#### - `private HashSet<String> stopWords`  
 
 This will be the hashset that stores all of the stopwords read from the `stopwords.txt` file.   
 
@@ -100,18 +100,18 @@ Use this non-parameterized constructor to initialize the instance variables.
 
 ### Methods to clean the data:
 
-You need to have the have the following methods in your class which will be used to clean the data. In each of the following methods which help in cleaning data, if the input parameter is null or of length 0, then return `null`.     
+You need to have the following methods in your class which will be used to clean the data. In each of the following methods which help in cleaning data, if the input parameter is null or of length 0, then return `null`.     
 
 #### - `public ArrayList<String> splitLine (String sentence)`  
 
-This method takes in a String as a parameter. The String will contain the entire review and this method should split it into words and return an ArrayList of words.  
+This method takes in a String as a parameter. The String will contain the the entire contents of one review and this method should split it into words and return an ArrayList of words.  
 
 Example:  
 
 input --> The Jungle-Book is a fantastic movie! It's the best!!   
 output --> ("The", "Jungle-Book", "is", "a", "fantastic", "movie!", "It's", "the", "best!!") 
 
-#### - `public ArrayList<String> replaceHyphensQuotes (ArrayList<String> words)` 
+#### - `public ArrayList<String> splitAtHyphensAndQuotes (ArrayList<String> words)` 
 
 This methods takes in an ArrayList of words and splits the words in the ArrayList at the hyphens and single quotes and return a modified ArrayList of words. 
  
@@ -176,9 +176,9 @@ output --> ("jungle", "book", "fantastic", "movie", "best")
 
 ### Methods to help with the rating prediction task:
 
-#### - `public void createStopWordsSet (String stopWordsInFile, String stopWordsOutFile)`  
+#### - `public void createStopWordsSet (String inFile, String outFile)`  
 
-Read the `stopwords.txt` as the input file and create a HashSet of stop words and also output the HashSet into an output file called `uniqueStopwords.txt`. This output file should contain one stop word in each line and should not have any duplicate stop words.  
+Read the `stopwords.txt` as the input file (inFile) and create a HashSet of stop words and also output the HashSet into an output file (outFile) called `uniqueStopwords.txt`. This output file should contain one stop word in each line and should not have any duplicate stop words.  
 
 #### - `public void cleanData (String inFile, String outFile, boolean ratingIncluded)`   
 
@@ -188,17 +188,17 @@ For example:
 | --------------- | ---------------- |
 | `rawReviewRatings.txt` | `cleanReviewRatings.txt` |
 | `rawReviews.txt` | `cleanReviews.txt` |
-| `rawReviewRatingsBig.txt` | `cleanReviewRatings.txt` |
-| `rawReviewsBig.txt` | `cleanReviews.txt` |
+| `rawReviewRatingsBig.txt` | `cleanReviewRatingsBig.txt` |
+| `rawReviewsBig.txt` | `cleanReviewsBig.txt` |
 
-You can read in the reviews line by line and call in the methods for cleaning the data one after the other which were described above: splitLine(), replaceHyphensQuotes(), removePunctuation(), removeWhiteSpaces(), removeEmptyWords(), removeSingleLetterWords(), toLowerCase(), removeStopWords().   
+You can read in the reviews line by line and call in the methods for cleaning the data one after the other which were described above: splitLine(), splitAtHyphensAndQuotes(), removePunctuation(), removeWhiteSpaces(), removeEmptyWords(), removeSingleLetterWords(), toLowerCase(), removeStopWords().   
 
-The cleaned files should have the same structure as the input files i.e; if the file had ratings followed by review then your output file should also have rating followed by cleaned review. If the input file has only reviews then the output file should have only cleaned reviews. The boolean flag ratingIncluded cab be used to differentiate between files that have rating and reviews (ratingIncluded = true) and files that have only reviews (ratingIncluded = false).   
+The cleaned files should have the same structure as the input files i.e; if the file had ratings followed by review then your output file should also have rating followed by cleaned review. If the input file has only reviews then the output file should have only cleaned reviews. The boolean flag ratingIncluded can be used to differentiate between files that have rating and reviews (ratingIncluded = true) and files that have only reviews (ratingIncluded = false).   
 
 For example:   
 
 If the input file `rawReviewRatings.txt` file contains:   
-4 The Jungle Book is awesome shouldn't!  
+4 The Jungle Book is awesome!  
 2 "The Lion King" is awe-inspiring !   
 0 Jack and Jill is worst!   
 1 " Finding Dory" is good .   
@@ -240,13 +240,13 @@ For example: The HashMap for the above cleaned data file `cleanReviewRatings.txt
  
 #### - `public void rateReviews (String inCleanFile, String outRatingsFile)`   
 
-For this, first you should have already cleaned the file with only reviews given to you. Once you have the cleaned file (for example: cleaned data file is `cleanReviews.txt` for the given raw review file i.e; `rawReviews.txt`), you will predict the ratings for the reviews given in this cleaned file. Using the HashMap that you created in the previous step, you are going to read new unrated reviews from a cleaned file (e.g. `cleanedReviews.txt`) and predict a rating for each review in this file. The predicted rating for each review is written to an output file named `ratings.txt`.    
+For this, first you should have already cleaned the file with only reviews given to you. Once you have the cleaned file (for example: cleaned data file is `cleanReviews.txt` for the given raw review file i.e; `rawReviews.txt`), you will predict the ratings for the reviews given in this cleaned file. Using the HashMap that you created in the previous step, you are going to read new unrated reviews from a cleaned file (e.g. `cleanReviews.txt`) and predict a rating for each review in this file. The predicted rating for each review is written to an output file named `ratings.txt`.    
 
 How do we predict the ratings for the unrated reviews?     
 
 - Rate each review by finding the rating for each word from the HashMap that was updated previously. The rating for a line of review is the average value of the rating of all the words in the review. If some word in this unrated review is not found in the HashMap, then that word is given a neutral rating of 2. If a review is empty (i.e. the review contains no words in it), then such a review is also given a neutral rating of 2.  
 
-e.g. Let see how we computed the rating for the 2nd review in cleanReviews.txt (i.e. “lion king fantastic”). We lookup the HashMap that we created before and get the average rating for each word in this review. The average ratings of each word in this review is shown below:   
+e.g. Let see how we computed the rating for the 2nd review in `cleanReviews.txt` (i.e. “lion king fantastic”). We lookup the HashMap that we created before (in the `updateHashMap` method description) and get the average rating for each word in this review. The average ratings of each word in this review is shown below:   
 
 lion: 5/2 = 2.5   
 king: 5/2 = 2.5  
@@ -255,17 +255,27 @@ fantastic: 10/3 = 3.3333333
 Rating for this line = (2.5 + 2.5 + 3.3333333) / 3 = 2.7777777  
 We are dividing by 3 since this review contains 3 words in total.  
 
-Based on these individual values, this line gets and average review of 2.7777777 which will be written in the `ratings.txt` file.  
+Based on these individual values, this line gets an average review of 2.7777777 which will be written in the `ratings.txt` file. Make sure to use floating point division instead of integer division since the decimal points will be truncated in the latter.  
 
 Another example: “finding nemo great”  
-Finding: 1  
-Nemo: 2 (because it is NOT found in the HashMap)  
+finding: 1  
+nemo: 2 (because it is NOT found in the HashMap)  
 great: 2 (because it is also NOT found in the HashMap)  
 
 Rating for this line = (1 + 2 + 2) / 3 = 1.6666666   
 
 Write the corresponding ratings for all the reviews to an output file named `ratings.txt`.   
 
+For example, You have been given a file called `rawReviews.txt`. For this file, after cleaning the data and predicting the ratings should give the following result:   
+|`rawReviews.txt`|`ratings.txt`|
+|---|---| 
+|I like "The Jungle Book".|3.3333333|
+|The Lion King is fantastic !|2.7777777|
+|Jack and Jill is bad.|0.6666667|
+|Finding Nemo is great!|1.6666666|
+|Zootopia is awesome !|3.5|   
+ 
+ 
 ## Testing
 You can test your code on the given small dataset first and then move on to testing your code on the given bigger dataset. We will be testing your code on another unseen bigger dataset, thus do not try to hard code any of the ratings.
 The flow of the overall code is shown in the figure below:   </br></br>
