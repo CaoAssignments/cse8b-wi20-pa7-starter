@@ -104,7 +104,7 @@ You need to have the following methods in your class which will be used to clean
 
 #### - `public ArrayList<String> splitLine (String sentence)`  
 
-This method takes in a String as a parameter. The String will contain the the entire contents of one review and this method should split it into words and return an ArrayList of words.  
+This method takes in a String as a parameter. The String will contain the entire contents of one review and this method should split it into words and return an ArrayList of words.  
 
 Example:  
 
