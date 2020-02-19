@@ -193,7 +193,15 @@ For example:
 | `rawReviewRatingsBig.txt` | `cleanReviewRatingsBig.txt` |
 | `rawReviewsBig.txt` | `cleanReviewsBig.txt` |
 
-You can read in the reviews line by line and call in the methods for cleaning the data one after the other which were described above: splitLine(), splitAtHyphensAndQuotes(), removePunctuation(), removeWhiteSpaces(), removeEmptyWords(), removeSingleLetterWords(), toLowerCase(), removeStopWords().   
+You can read in the reviews line by line and call in the methods for cleaning the data one after the other which were described above. Make sure you call the functions for cleaning the data in this order: 
+1. splitLine() 
+2. splitAtHyphensAndQuotes()
+3. removePunctuation()
+4. removeWhiteSpaces()
+5. removeEmptyWords() 
+6. removeSingleLetterWords()
+7. toLowerCase()
+8. removeStopWords()   
 
 The cleaned files should have the same structure as the input files i.e; if the file had ratings followed by review then your output file should also have rating followed by cleaned review. If the input file has only reviews then the output file should have only cleaned reviews. The boolean flag ratingIncluded can be used to differentiate between files that have rating and reviews (ratingIncluded = true) and files that have only reviews (ratingIncluded = false).   
 
@@ -254,32 +262,32 @@ lion: 5/2 = 2.5
 king: 5/2 = 2.5  
 fantastic: 10/3 = 3.3333333  
 
-Rating for this line = (2.5 + 2.5 + 3.3333333) / 3 = 2.7777777  
+Rating for this line = (2.5 + 2.5 + 3.3333333) / 3 = 2.7  
 We are dividing by 3 since this review contains 3 words in total.  
 
-Based on these individual values, this line gets an average review of 2.7777777 which will be written in the `ratings.txt` file. Make sure to use floating point division instead of integer division since the decimal points will be truncated in the latter.  
+Based on these individual values, this line gets an average review of 2.7 which will be written in the `ratings.txt` file. Make sure to use floating point division instead of integer division since the decimal points will be truncated in the latter. Also, once you get the final rating for a particular review, truncate it to just one decimal place (do not round it up). 
 
 Another example: “finding nemo great”  
 finding: 1  
 nemo: 2 (because it is NOT found in the HashMap)  
 great: 2 (because it is also NOT found in the HashMap)  
 
-Rating for this line = (1 + 2 + 2) / 3 = 1.6666666   
+Rating for this line = (1 + 2 + 2) / 3 = 1.6   
 
 Write the corresponding ratings for all the reviews to an output file named `ratings.txt`.   
 
 For example, You have been given a file called `rawReviews.txt`. For this file, after cleaning the data and predicting the ratings should give the following result:   
-|`rawReviews.txt`|`ratings.txt`|
-|---|---| 
-|I like "The Jungle Book".|3.3333333|
-|The Lion King is fantastic !|2.7777777|
-|Jack and Jill is bad.|0.6666667|
-|Finding Nemo is great!|1.6666666|
-|Zootopia is awesome !|3.5|   
+|`rawReviews.txt`|`cleanReviews.txt`|`ratings.txt`|
+|---|---|---| 
+|I like "The Jungle Book".|like jungle book|3.3|
+|The Lion King is fantastic !|lion king fantastic|2.7|
+|Jack and Jill is bad.|jack jill bad|0.6|
+|Finding Nemo is great!|finding nemo great|1.6|
+|Zootopia is awesome !|zootopia awesome|3.5|   
  
  
 ## Testing
-You can test your code on the given small dataset first and then move on to testing your code on the given bigger dataset. We will be testing your code on another unseen bigger dataset, thus do not try to hard code any of the ratings.
+You can test your code on the given small dataset first and then move on to testing your code on the given bigger dataset. For testing your code, create an object of the RatingPredictor class and call various methods on it. Another important point to remember is when you generate the output files, make sure you create the files in the same folder as the RatingPredictor class. We will be testing your code on another unseen bigger dataset, thus do not try to hard code any of the ratings.
 The flow of the overall code is shown in the figure below:   </br></br>
 
 

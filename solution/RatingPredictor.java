@@ -5,6 +5,8 @@
  */
 
 import java.io.*;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -438,7 +440,11 @@ public class RatingPredictor {
                     }
                     
                     float rating = sum / wordCount;
-                    pw.println(rating);
+//                    DecimalFormat df = new DecimalFormat("#.#");
+//                    df.setRoundingMode(RoundingMode.DOWN);
+//                    pw.println(df.format(rating));
+                    float roundMode = 0.05f;
+                    pw.println(String.format("%.1f",rating - roundMode));
                 }
             }
         }
