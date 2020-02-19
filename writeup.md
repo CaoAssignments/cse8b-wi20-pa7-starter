@@ -262,17 +262,19 @@ lion: 5/2 = 2.5
 king: 5/2 = 2.5  
 fantastic: 10/3 = 3.3333333  
 
-Rating for this line = (2.5 + 2.5 + 3.3333333) / 3 = 2.7  
-We are dividing by 3 since this review contains 3 words in total.  
+Rating for this line = (2.5 + 2.5 + 3.3333333) / 3 = 2.7777777    
+After rounding up, Rating for this line = 2.8      
+(We are dividing by 3 since this review contains 3 words in total)        
 
-Based on these individual values, this line gets an average review of 2.7 which will be written in the `ratings.txt` file. Make sure to use floating point division instead of integer division since the decimal points will be truncated in the latter. Also, once you get the final rating for a particular review, truncate it to just one decimal place (do not round it up). 
+Based on these individual values, this line gets an average review of 2.7 which will be written in the `ratings.txt` file. Make sure to use floating point division instead of integer division since the decimal points will be truncated in the latter. Also, once you get the final rating for a particular review, round it to just one decimal place (do not simply truncate). For example, in this above example, the floating point division would give 2.7777777, but you need to round this upto one decimal place into your `ratings.txt` file which is 2.8 without any rounding off. Also, if the final rating you get is 2 then make sure your value is 2.0 in the output file.     
 
 Another example: “finding nemo great”  
 finding: 1  
 nemo: 2 (because it is NOT found in the HashMap)  
 great: 2 (because it is also NOT found in the HashMap)  
 
-Rating for this line = (1 + 2 + 2) / 3 = 1.6   
+Rating for this line = (1 + 2 + 2) / 3 = 1.6666667    
+After rounding up, Rating for this line = 1.7       
 
 Write the corresponding ratings for all the reviews to an output file named `ratings.txt`.   
 
@@ -280,9 +282,9 @@ For example, You have been given a file called `rawReviews.txt`. For this file, 
 |`rawReviews.txt`|`cleanReviews.txt`|`ratings.txt`|
 |---|---|---| 
 |I like "The Jungle Book".|like jungle book|3.3|
-|The Lion King is fantastic !|lion king fantastic|2.7|
-|Jack and Jill is bad.|jack jill bad|0.6|
-|Finding Nemo is great!|finding nemo great|1.6|
+|The Lion King is fantastic !|lion king fantastic|2.8|
+|Jack and Jill is bad.|jack jill bad|0.7|
+|Finding Nemo is great!|finding nemo great|1.7|
 |Zootopia is awesome !|zootopia awesome|3.5|   
  
  

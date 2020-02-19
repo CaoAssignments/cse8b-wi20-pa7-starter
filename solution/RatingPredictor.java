@@ -440,11 +440,7 @@ public class RatingPredictor {
                     }
                     
                     float rating = sum / wordCount;
-//                    DecimalFormat df = new DecimalFormat("#.#");
-//                    df.setRoundingMode(RoundingMode.DOWN);
-//                    pw.println(df.format(rating));
-                    float roundMode = 0.05f;
-                    pw.println(String.format("%.1f",rating - roundMode));
+                    pw.println(String.format("%.1f", rating));
                 }
             }
         }
