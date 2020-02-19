@@ -266,7 +266,7 @@ Rating for this line = (2.5 + 2.5 + 3.3333333) / 3 = 2.7777777
 After rounding up, Rating for this line = 2.8      
 (We are dividing by 3 since this review contains 3 words in total)        
 
-Based on these individual values, this line gets an average review of 2.7 which will be written in the `ratings.txt` file. Make sure to use floating point division instead of integer division since the decimal points will be truncated in the latter. Also, once you get the final rating for a particular review, round it to just one decimal place (do not simply truncate). For example, in this above example, the floating point division would give 2.7777777, but you need to round this upto one decimal place into your `ratings.txt` file which is 2.8 without any rounding off. Also, if the final rating you get is 2 then make sure your value is 2.0 in the output file.     
+Based on these individual values, this line gets an average review of 2.7 which will be written in the `ratings.txt` file. Make sure to use floating point division instead of integer division since the decimal points will be truncated in the latter. Also, once you get the final rating for a particular review, round it to just one decimal place (do not simply truncate). For example, in this above example, the floating point division would give 2.7777777, but you need to round this upto one decimal place into your `ratings.txt` file which will be 2.8 after rounding off. Also, if the final rating you get is 2 then make sure your value is 2.0 in the output file.     
 
 Another example: “finding nemo great”  
 finding: 1  
